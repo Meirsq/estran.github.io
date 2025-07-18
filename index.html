@@ -427,7 +427,9 @@
 
         <div class="score-board">
             <div>Score: <span id="score">0</span></div>
-            <div>Espaces visités: <span id="galleries-visited">0</span>/11</div>
+            <div>Espaces visités: <span id="galleries-visited">0</span>/11<br>
+                <span id="visited-list" style="font-size:0.9em;color:#004d7a;"></span>
+            </div>
             <div>Temps: <span id="timer">00:00</span></div>
         </div>
 
@@ -827,8 +829,11 @@
             spaceHeader.style.background = `linear-gradient(135deg, #${Math.floor(Math.random() * 16777215).toString(16)} 0%, #${Math.floor(Math.random() * 16777215).toString(16)} 100%)`;
             artifactDisplay.innerHTML = '';
             galleriesVisited++;
+            gameState.visitedGalleries.add(galleryId);
+            galleriesVisited = gameState.visitedGalleries.size;
             galleriesVisitedElement.textContent = galleriesVisited;
-            scoreElement.textContent = score;
+            document.getElementById('visited-list').textContent =
+                Array.from(gameState.visitedGalleries).map(id => galleries[id].icon).join(' ');
 
             const artifacts = galleries[galleryId].artifacts;
             artifacts.forEach((artifact, index) => {
@@ -892,7 +897,7 @@
             setTimeout(() => {
                 feedback.style.display = 'none';
                 feedback.remove();
-            }, 3000);
+            }, 6000); // Affiche pendant 6 secondes au lieu de 3
         }
         function backToGalleries() {
             currentGallery = null;
