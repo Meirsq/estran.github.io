@@ -915,17 +915,39 @@
             quizSection.style.display = 'none';
             achievements.style.display = 'block';
             achievementBadges.innerHTML = '';
-            const badges = [
-                { name: "Explorateur des Mers", description: "A exploré tous les espaces de la Cité de la Mer", icon: "🌊" },
-                { name: "Maître des Artéfacts", description: "A répondu correctement à toutes les questions", icon: "🏅" },
-                { name: "Gardien de l'Environnement", description: "A pris conscience des enjeux écologiques marins", icon: "🌍" }
-            ];
+
+            // Calcul du temps final
+            const elapsed = Date.now() - startTime;
+            const minutes = Math.floor(elapsed / 60000);
+            const seconds = Math.floor((elapsed % 60000) / 1000);
+            const finalTime = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+
+            // Badges dynamiques selon score et progression
+            const badges = [];
+            if (galleriesVisited === totalGalleries) {
+                badges.push({ name: "Explorateur des Mers", description: "A exploré tous les espaces de la Cité de la Mer", icon: "🌊" });
+            }
+            if (score >= totalGalleries * 20) {
+                badges.push({ name: "Maître des Artéfacts", description: "A répondu correctement à toutes les questions", icon: "🏅" });
+            }
+            if (score >= 60) {
+                badges.push({ name: "Gardien de l'Environnement", description: "A pris conscience des enjeux écologiques marins", icon: "🌍" });
+            }
+
             badges.forEach(badge => {
                 const badgeDiv = document.createElement('div');
                 badgeDiv.className = 'achievement-badge';
                 badgeDiv.innerHTML = `<span>${badge.icon}</span> <strong>${badge.name}</strong> - ${badge.description}`;
                 achievementBadges.appendChild(badgeDiv);
             });
+
+            // Affiche le temps final sous les badges
+            const timeDiv = document.createElement('div');
+            timeDiv.style.marginTop = "15px";
+            timeDiv.style.fontWeight = "bold";
+            timeDiv.innerHTML = `⏱ Temps total : <span style="color:#00cec9">${finalTime}</span>`;
+            achievementBadges.appendChild(timeDiv);
+
             achievements.scrollIntoView({ behavior: 'smooth' });
         }
         function checkAchievements() {
