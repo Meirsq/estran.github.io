@@ -380,17 +380,20 @@ const backButton = document.querySelector('.back-button');
 const galleryKeys = Object.keys(galleries);
 const totalGalleries = galleryKeys.length;
 const galleryIcons = {
-  charpenterie: '🔨',
-  corderie: '🪢',
-  moteur: '⚙',
-  energie: '🔋',
-  navigation: '🧭',
-  peche: '🎣',
-  salage: '🧂',
-  aquaculture: '🦪',
-  dechets: '♻',
-  plancton: '🦠',
-  falaises: '🏔'
+  charpenterie:
+      '<img src="img/charpenterie.png" alt="Charpenterie" class="gallery-icon">',
+  corderie: '<img src="img/corderie.png" alt="Corderie" class="gallery-icon">',
+  moteur: '<img src="img/moteur.png" alt="Moteur" class="gallery-icon">',
+  energie: '<img src="img/energie.png" alt="Energie" class="gallery-icon">',
+  navigation:
+      '<img src="img/navigation.png" alt="Navigation" class="gallery-icon">',
+  peche: '<img src="img/peche.png" alt="Pêche" class="gallery-icon">',
+  salage: '<img src="img/salage.png" alt="Salage" class="gallery-icon">',
+  aquaculture:
+      '<img src="img/aquaculture.png" alt="Aquaculture" class="gallery-icon">',
+  dechets: '<img src="img/dechets.png" alt="Déchets" class="gallery-icon">',
+  plancton: '<img src="img/plancton.png" alt="Plancton" class="gallery-icon">',
+  falaises: '<img src="img/falaises.png" alt="Falaises" class="gallery-icon">'
 };
 function startTimer() {
   timerInterval = setInterval(() => {
