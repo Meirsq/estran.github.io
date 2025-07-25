@@ -520,6 +520,9 @@ function showAchievements() {
     timerInterval = null;
   }
 
+  // Calcul du temps écoulé en secondes
+  const elapsed = Math.floor((Date.now() - startTime) / 1000);
+
   const badges = [];
   if (galleriesVisited === totalGalleries) {
     badges.push({
@@ -542,7 +545,6 @@ function showAchievements() {
       icon: '🌍'
     });
   }
-  // Ajoute ici d'autres badges si tu veux
   if (score === 0) {
     badges.push({
       name: 'Touriste',
@@ -557,7 +559,8 @@ function showAchievements() {
       icon: '🔎'
     });
   }
-  if (score === totalGalleries * 10 && timerElement.textContent <= '05:00') {
+  // Correction ici : comparaison numérique
+  if (score === totalGalleries * 10 && elapsed <= 300) {  // 5 minutes
     badges.push({
       name: 'Rapide comme l\'éclair',
       description:
@@ -565,7 +568,7 @@ function showAchievements() {
       icon: '⚡'
     });
   }
-  if (score === totalGalleries * 10 && timerElement.textContent <= '10:00') {
+  if (score === totalGalleries * 10 && elapsed <= 600) {  // 10 minutes
     badges.push({
       name: 'Marin Express',
       description:
