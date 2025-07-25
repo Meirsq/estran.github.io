@@ -412,7 +412,7 @@ function enterGallery(galleryId) {
   gameState.currentGallery = galleryId;
   gallerySelection.style.display = 'none';
   quizSection.style.display = 'block';
-  spaceHeader.textContent =
+  spaceHeader.innerHTML =
       `${galleryIcons[galleryId]} ${galleries[galleryId].name}`;
   spaceHeader.style.background = `linear-gradient(135deg, #${
       Math.floor(Math.random() * 16777215).toString(16)} 0%, #${
