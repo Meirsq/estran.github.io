@@ -589,7 +589,7 @@ function showAchievements() {
   achievements.scrollIntoView({behavior: 'smooth'});
 }
 function checkAchievements() {
-  if (galleriesVisited === totalGalleries && score >= 20) {
+  if (galleriesVisited === totalGalleries) {
     showAchievements();
   }
 }
