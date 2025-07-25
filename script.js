@@ -364,6 +364,7 @@ let currentGallery = null;
 let timerInterval = null;
 let startTime = Date.now();
 let score = 0;
+let galleriesVisitedSet = new Set();
 let galleriesVisited = 0;
 const scoreElement = document.getElementById('score');
 const galleriesVisitedElement = document.getElementById('galleries-visited');
@@ -414,8 +415,11 @@ function enterGallery(galleryId) {
       Math.floor(Math.random() * 16777215).toString(16)} 0%, #${
       Math.floor(Math.random() * 16777215).toString(16)} 100%)`;
   artifactDisplay.innerHTML = '';
-  galleriesVisited++;
-  galleriesVisitedElement.textContent = galleriesVisited;
+  if (!galleriesVisitedSet.has(galleryId)) {
+    galleriesVisitedSet.add(galleryId);
+    galleriesVisited = galleriesVisitedSet.size;
+    galleriesVisitedElement.textContent = galleriesVisited;
+  }
   scoreElement.textContent = score;
 
   // Marquer la carte comme visitée
@@ -511,13 +515,11 @@ function showAchievements() {
   achievements.style.display = 'block';
   achievementBadges.innerHTML = '';
 
-  // Arrêter le timer ici
   if (timerInterval) {
     clearInterval(timerInterval);
     timerInterval = null;
   }
 
-  // Conditions pour chaque badge
   const badges = [];
   if (galleriesVisited === totalGalleries) {
     badges.push({
@@ -540,30 +542,35 @@ function showAchievements() {
       icon: '🌍'
     });
   }
-
-  if (badges.length === 0) {
-    achievementBadges.innerHTML =
-        '<p>Aucun badge obtenu pour le moment. Essayez d\'améliorer votre score !</p>';
-  }
-  if (galleriesVisited === totalGalleries) {
+  // Ajoute ici d'autres badges si tu veux
+  if (score === 0) {
     badges.push({
-      name: 'Explorateur des Mers',
-      description: 'A exploré tous les espaces de la Cité de la Mer',
-      icon: '🌊'
+      name: 'Touriste',
+      description: 'A visité sans répondre correctement à aucune question.',
+      icon: '🧳'
     });
   }
-  if (score >= totalGalleries * 10) {
+  if (score > 0 && score < (totalGalleries * 10) / 2) {
     badges.push({
-      name: 'Maître des Artéfacts',
-      description: 'A répondu correctement à toutes les questions',
-      icon: '🏅'
+      name: 'Curieux',
+      description: 'A commencé à explorer les connaissances marines.',
+      icon: '🔎'
     });
   }
-  if (score >= (totalGalleries * 10) / 2) {
+  if (score === totalGalleries * 10 && timerElement.textContent <= '05:00') {
     badges.push({
-      name: 'Gardien de l\'Environnement',
-      description: 'A pris conscience des enjeux écologiques marins',
-      icon: '🌍'
+      name: 'Rapide comme l\'éclair',
+      description:
+          'A terminé le jeu en moins de 5 minutes avec un score parfait !',
+      icon: '⚡'
+    });
+  }
+  if (score === totalGalleries * 10 && timerElement.textContent <= '10:00') {
+    badges.push({
+      name: 'Marin Express',
+      description:
+          'A terminé le jeu en moins de 10 minutes avec un score parfait.',
+      icon: '🚤'
     });
   }
 
