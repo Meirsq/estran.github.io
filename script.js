@@ -402,7 +402,7 @@ let gameState = {
             setTimeout(() => {
                 feedback.style.display = 'none';
                 feedback.remove();
-            }, 3000);
+            }, 5000);
         }
         function backToGalleries() {
             currentGallery = null;
