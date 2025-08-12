@@ -1,0 +1,4 @@
+User-agent: ClaudeBot
+Disallow: /
+User-agent: *
+Disallow: /your-hypertest-page/
